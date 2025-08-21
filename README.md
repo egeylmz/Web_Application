@@ -7,6 +7,6 @@ their role.
 Technologies Used =====
 ASP.NET Core with model view controller architecture *
 Microsoft SQL server + Entity framework core *
-CSS, JavaScript, Bootstrap, AJAX *
+CSS, JavaScript, AJAX *
 Cookie-based authentication *
 RESTful API
