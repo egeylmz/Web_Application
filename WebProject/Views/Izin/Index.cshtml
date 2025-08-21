@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "İzin Kullanıcısı Paneli";
+}
+
+<div class="admin-flex">
+    <div class="admin-left">
+        <span class="admin-title">İzin Kullanıcısı Paneli</span>
+    </div>
+    <div class="admin-right">
+        <div class="admin-grid" style="grid-template-rows: 1fr; grid-template-columns: 1fr 1fr;">
+            <a asp-controller="Izin" asp-action="Yeni" class="admin-box">İzin Talebi Oluştur</a>
+            <a asp-controller="Izin" asp-action="IzinListele" class="admin-box">İzin Talebi Görüntüle</a>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,79 @@
+@model List<WebProject.Models.Izin>
+
+@section Scripts {
+    <script src="~/js/izinler.js"></script>       
+}
+
+@{
+    ViewData["Title"] = "Tüm İzin Talepleri";
+}
+
+<h2 class="mb-4 text-center" style="color: #763134;">Tüm İzin Talepleri</h2>
+
+<form id="izinIslemForm">
+    @Html.AntiForgeryToken()
+</form>
+
+<div id="izinTabloContainer">
+    <table class="table table-bordered table-hover table-admin">
+        <thead>
+            <tr>
+                <th>Kullanıcı Adı</th>
+                <th>İzin Tipi</th>
+                <th>Başlangıç Tarihi</th>
+                <th>Bitiş Tarihi</th>
+                <th>Açıklama</th>
+                <th>Durum</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var izin in Model)
+            {
+                <tr>
+                    <td>@izin.AdSoyad</td>
+                    <td>@izin.IzinTipi</td>
+                    <td>@izin.BaslangicTarihi.ToShortDateString()</td>
+                    <td>@izin.BitisTarihi.ToShortDateString()</td>
+                    <td>@izin.Aciklama</td>
+                    <td>@izin.Durum</td>
+                    <td>
+                        @if (izin.Durum == "Bekliyor")
+                        {
+                            <button onclick="showIzinOnayModal(@izin.Id, '@izin.AdSoyad', '@izin.IzinTipi')" class="btn btn-success btn-sm">Onayla</button>
+                            <button onclick="showIzinReddetModal(@izin.Id, '@izin.AdSoyad', '@izin.IzinTipi')" class="btn btn-danger btn-sm ms-2">Reddet</button>
+                        }
+                        else
+                        {
+                            <span class="text-muted">İşlem Yapıldı</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- İzin Onaylama Modalı -->
+<div id="izinOnayModal" class="custom-modal" style="display:none;">
+    <div class="custom-modal-content">
+        <h4 class="mb-3" style="color:#763134;">İzin Talebini Onayla</h4>
+        <p id="izinOnayMesaj">Bu izin talebini onaylamak istediğinize emin misiniz?</p>
+        <div class="text-center mt-3">
+            <button id="izinOnayBtn" class="btn btn-success me-2">Evet, Onayla</button>
+            <button id="izinOnayIptalBtn" class="btn btn-secondary">İptal</button>
+        </div>
+    </div>
+</div>
+
+<!-- İzin Reddetme Modalı -->
+<div id="izinReddetModal" class="custom-modal" style="display:none;">
+    <div class="custom-modal-content">
+        <h4 class="mb-3" style="color:#763134;">İzin Talebini Reddet</h4>
+        <p id="izinReddetMesaj">Bu izin talebini reddetmek istediğinize emin misiniz?</p>
+        <div class="text-center mt-3">
+            <button id="izinReddetBtn" class="btn btn-danger me-2">Evet, Reddet</button>
+            <button id="izinReddetIptalBtn" class="btn btn-secondary">İptal</button>
+        </div>
+    </div>
+</div>

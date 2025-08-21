@@ -1,0 +1,32 @@
+@model WebProject.Models.EkipmanTalep
+
+@{
+    ViewData["Title"] = "Ekipman Talep Formu";
+}
+
+<div class="text-center">
+    <h2 class="ana-baslik">Yeni Ekipman Talebi Oluştur</h2>
+</div>
+
+<div class="d-flex justify-content-center">
+    <form asp-action="Yeni" asp-controller="Ekipman" method="post"  style="max-width: 400px; width: 100%;">
+        <div class="form-group mb-3">
+            <label for="EkipmanAdi">Ekipman Adı</label>
+            <input asp-for="EkipmanAdi" class="form-control" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="TalepSayisi">Talep Sayısı</label>
+            <textarea asp-for="TalepSayisi" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Aciklama">Açıklama</label>
+            <textarea asp-for="Aciklama" class="form-control" rows="3" required></textarea>
+        </div>
+
+    <!-- TalepTarihi kullanıcının girmesine gerek yok, controller'da atanacak -->
+        <button type="submit" class="btn btn-primary">Talep Gönder</button>
+
+    </form>
+</div>

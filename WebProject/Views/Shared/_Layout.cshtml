@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Security.Claims
+@{
+    var user = Context.User;
+    string redirectUrl = Url.Action("Index", "Home"); // varsayılan
+
+    if (user.Identity.IsAuthenticated)                              //kullanıcılar WebProjecte basınca kendi ana panellerine dönecek
+    {                                                               //aşağıda navbarda da değişiklik yapıldı.
+        var role = user.FindFirst(ClaimTypes.Role)?.Value;
+
+        switch (role)
+        {
+            case "Admin":
+                redirectUrl = Url.Action("Panel", "Admin");
+                break;
+            case "IzinKullanicisi":
+                redirectUrl = Url.Action("Index", "Izin");
+                break;
+            case "EkipmanKullanicisi":
+                redirectUrl = Url.Action("Index", "Ekipman");
+                break;
+        }
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">   
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebProject</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebProject.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="@redirectUrl">
+                    <img src="~/img/ikon.svg" style="height:54px;" class="ikon-class">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <span class="ms-3 text-dark" style="font-size:1.1rem;">Hoş geldin, @User.Identity.Name</span>
+                    }
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">                         
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link text-dark fw-bold">Oturum Süresi:</a>
+                                <span id="session-timer" class="me-4 text-danger fw-bold" style="margin-left: 0;"></span>
+                                <a class="nav-link text-dark fw-bold" asp-controller="Account" asp-action="Logout">Çıkış yap</a>
+                            </li>
+                        } 
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - WebProject
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+@{
+    var kalanSaniye = 60;
+    var sessionEndStr = Context.Request.Cookies["SessionEnd"];
+    if (!string.IsNullOrEmpty(sessionEndStr) && long.TryParse(sessionEndStr, out var sessionEnd))
+    {
+        var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        kalanSaniye = (int)(sessionEnd - now);
+        if (kalanSaniye < 0) kalanSaniye = 0;
+    }
+}
+<script>
+    window.oturumKalanSaniye = @kalanSaniye;
+</script>
+
+<div id="oturumSonuModal" class="custom-modal" style="display:none;">
+    <div class="custom-modal-content">
+        <p>Oturum süreniz sona erdi.<br>Ana ekrana yönlendiriliyorsunuz...</p>
+    </div>
+</div>

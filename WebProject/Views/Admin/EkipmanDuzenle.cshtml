@@ -1,0 +1,30 @@
+@model WebProject.Models.Ekipman
+
+@{
+    ViewData["Title"] = "Ekipman Düzenle";
+}
+
+<div class="text-center">
+    <h2 class="ana-baslik">Ekipman Düzenle</h2>
+</div>
+
+<div class="d-flex justify-content-center">
+    <form asp-action="EkipmanDuzenle" method="post" style="max-width: 400px; width: 100%;">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label for="Adi" style="color: #763134; font-weight: 600;" >Ekipman Adı</label>
+            <input asp-for="EkipmanAdi" class="form-control" />
+            <span asp-validation-for="EkipmanAdi" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="StokAdedi" style="color: #763134; font weight: 600;">Stok Adedi</label>
+            <input asp-for="StokAdedi" class="form-control" type="number" style="height: 40px;" />
+            <span asp-validation-for="StokAdedi" class="text-danger"></span>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary me-2 mt-2">Güncelle</button>
+        </div>
+    </form>
+</div>
+

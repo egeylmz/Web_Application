@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Admin Paneli";
+}
+
+<div class="admin-flex">
+    <div class="admin-left">
+        <span class="admin-title">Admin Paneli</span>                 
+    </div>
+    <div class="admin-right">
+        <div class="admin-grid">
+            <a asp-controller="Admin" asp-action="Kullanicilar" class="admin-box">
+                Kullanıcılar
+            </a>
+            <a asp-controller="Admin" asp-action="EkipmanStok" class="admin-box">
+                Ekipman Stokları
+            </a>
+            <a asp-controller="Admin" asp-action="IzinTalepleri" class="admin-box">
+                İzin Talepleri
+            </a>
+            <a asp-controller="Admin" asp-action="EkipmanTalepleri" class="admin-box">
+                Ekipman Talepleri
+            </a>
+            <a asp-controller="Admin" asp-action="GuncelKullanicilar" class="admin-box">
+                Api Kullanıcılar
+            </a>
+        </div>
+    </div>
+</div>

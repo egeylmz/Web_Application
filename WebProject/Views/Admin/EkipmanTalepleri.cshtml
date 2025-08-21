@@ -1,0 +1,85 @@
+@model List<WebProject.Models.EkipmanTalep>
+
+@section Scripts {
+    <script src="~/js/ekipmanTalepleri.js"></script>       
+}
+
+@{
+    ViewData["Title"] = "Tüm Ekipman Talepleri";
+}
+
+<h2 class="mb-4 text-center" style="color: #763134;">Tüm Ekipman Talepleri</h2>
+
+<form id="ekipmanTalepForm">
+    @Html.AntiForgeryToken()
+</form>
+
+<div id="ekipmanTalepTabloContainer">
+    <table class="table table-bordered table-hover table-admin">
+        <thead>
+            <tr>
+                <th>Talep Eden</th>
+                <th>Ekipman Adı</th>
+                <th>Talep Sayısı</th>
+                <th>Talep Tarihi</th>
+                <th>Açıklama</th>
+                <th>Durum</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var talep in Model)
+            {
+                <tr>
+                    <td>@talep.TalepKişi</td>
+                    <td>@talep.EkipmanAdi</td>
+                    <td>@talep.TalepSayisi</td>
+                    <td>@talep.TalepTarihi.ToShortDateString()</td>
+                    <td>@talep.Aciklama</td>
+                    <td>@talep.Durum</td>
+                    <td>
+                        @if (talep.Durum == "Bekliyor")
+                        {
+                            <button onclick="showEkipmanTalepOnayModal(@talep.Id, '@talep.TalepKişi', '@talep.EkipmanAdi')" class="btn btn-success btn-sm">Onayla</button>
+                            <button onclick="showEkipmanTalepReddetModal(@talep.Id, '@talep.TalepKişi', '@talep.EkipmanAdi')" class="btn btn-danger btn-sm ms-2">Reddet</button>
+                        }
+                        else
+                        {
+                            <span class="text-muted">İşlem Yapıldı</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-4 text-end">
+    <a asp-controller="Admin" asp-action="EkipmanStok" class="btn btn-primary me-2">
+         Ekipman Stokları
+    </a>
+</div>
+
+<!-- Ekipman Talebi Onaylama Modalı -->
+<div id="ekipmanTalepOnayModal" class="custom-modal" style="display:none;">
+    <div class="custom-modal-content">
+        <h4 class="mb-3" style="color:#763134;">Ekipman Talebini Onayla</h4>
+        <p id="ekipmanTalepOnayMesaj">Bu ekipman talebini onaylamak istediğinize emin misiniz?</p>
+        <div class="text-center mt-3">
+            <button id="ekipmanTalepOnayBtn" class="btn btn-success me-2">Evet, Onayla</button>
+            <button id="ekipmanTalepOnayIptalBtn" class="btn btn-secondary">İptal</button>
+        </div>
+    </div>
+</div>
+
+<!-- Ekipman Talebi Reddetme Modalı -->
+<div id="ekipmanTalepReddetModal" class="custom-modal" style="display:none;">
+    <div class="custom-modal-content">
+        <h4 class="mb-3" style="color:#763134;">Ekipman Talebini Reddet</h4>
+        <p id="ekipmanTalepReddetMesaj">Bu ekipman talebini reddetmek istediğinize emin misiniz?</p>
+        <div class="text-center mt-3">
+            <button id="ekipmanTalepReddetBtn" class="btn btn-danger me-2">Evet, Reddet</button>
+            <button id="ekipmanTalepReddetIptalBtn" class="btn btn-secondary">İptal</button>
+        </div>
+    </div>
+</div>

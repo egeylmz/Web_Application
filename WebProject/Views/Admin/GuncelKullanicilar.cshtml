@@ -1,0 +1,42 @@
+@model List<WebProject.Models.Kullanici>
+
+@{
+    ViewData["Title"] = "Kullanıcı Listesi";                  
+}                                                                                
+<h2 class="mb-4 text-center" style="color: #763134;">API Kullanıcı Listesi</h2>
+
+@if (TempData["Hata"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Hata!</strong> @TempData["Hata"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div id="kullaniciTabloContainer">
+    <table class="table table-bordered table-hover table-admin">
+        <thead class="table-dark">
+            <tr>
+                <th>Ad Soyad</th>
+                <th>Rol</th>
+                <th>Aktif</th>
+                <th>Kayıt Tarihi</th>
+                <th>Şifre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kullanici in Model)
+            {
+                <tr>
+                    <td>@kullanici.AdSoyad</td>
+                    <td>@kullanici.Rol</td>
+                    <td>@(kullanici.Aktif ? "Evet" : "Hayır")</td>
+                    <td>@kullanici.KayitTarihi.ToShortDateString()</td>
+                    <td>@kullanici.Sifre</td>
+                
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

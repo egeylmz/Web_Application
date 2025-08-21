@@ -1,0 +1,41 @@
+@model WebProject.Models.Kullanici
+
+@{
+    ViewData["Title"] = "Kullanıcıyı Düzenle";
+}
+
+<div>
+    <h2 class="ana-baslik">Kullanıcıyı Düzenle</h2>
+</div>
+
+<div class="d-flex justify-content-center">
+    <form asp-action="Duzenle" method="post" style="max-width: 400px; width: 100%;">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label for="AdSoyad" style="color: #763134; font-weight: 600;">Ad Soyad</label>
+            <input asp-for="AdSoyad" class="form-control" style="height: 40px;" />
+            <span asp-validation-for="AdSoyad" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="Rol" style="color: #763134; font-weight:600;">Rol</label>
+            <input asp-for="Rol" class="form-control" style="height: 40px;"/>
+            <span asp-validation-for="Rol" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="Sifre" style="color: #763134;"></label>
+            <input asp-for="Sifre" class="form-control" />
+            <span asp-validation-for="Sifre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="Aktif" style="color: #763134; font-weight: 600;">Aktif</label>
+            <input asp-for="Aktif" type="checkbox" class="form-check-input" />
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary me-2 mt-2">Kaydet</button>
+            <a asp-action="Kullanicilar" class="btn btn-secondary mt-2">İptal</a>
+        </div>
+        
+    </form>
+</div>
+

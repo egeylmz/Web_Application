@@ -1,0 +1,86 @@
+@model List<WebProject.Models.Ekipman>
+
+@section Scripts {
+    <script src="~/js/ekipman.js?v=3"></script>       
+}
+@{
+    ViewData["Title"] = "Ekipman Stokları";
+}
+
+<h2 class="mb-4 text-center" style="color: #763134;">Ekipman Stokları</h2>
+
+<form id="ekipmanSilmeForm">
+    @Html.AntiForgeryToken()
+</form>
+
+<div id="ekipmanTabloContainer" style="max-width: 600px; margin: 0 auto;">
+    <table class="table table-bordered table-hover table-admin">
+        <thead>
+            <tr>
+                <th>Ekipman Adı</th>
+                <th>Adet</th>
+                <th style="width: 70px;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ekipman in Model)
+            {
+                <tr>
+                    <td>@ekipman.EkipmanAdi</td>
+                    <td>@ekipman.StokAdedi</td>
+                    <td class="d-flex justify-content-start">
+                        <a href="#" class="me-2" onclick="showEkipmanSilmeModal('@ekipman.Id'); return false;">
+                            <img src="~/img/delete.png" width="24" height="24" alt="Sil" />
+                        </a>
+                        <a asp-controller="Admin" asp-action="EkipmanDuzenle" asp-route-id="@ekipman.Id" title="Düzenle" class="ms-2">
+                            <img src="~/img/edit.png" width="25" height="25" alt="Düzenle" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-4 text-end" style="max-width: 600px; margin: 0 auto;">
+    <a href="#" class="btn btn-primary me-2" onclick="showEkipmanEkleModal(); return false;">
+        + Yeni Ekipman Ekle
+    </a>
+</div>
+
+<!-- Yeni Ekipman Ekle Modalı, ekrana pop-up -->
+<div id="ekipmanEkleModal" class="custom-modal" style="display:none;">
+    <div class="custom-modal-content">
+        <h4 class="mb-3" style="color:#763134;">Yeni Ekipman Ekle</h4>
+        <form id="ekipmanEkleForm">
+            <div class="mb-3">
+                <label style="color: #763134; font-weight: 600;">Ekipman Adı</label>
+                <input type="text" name="EkipmanAdi" class="form-control" style="height: 40px;" required />
+            </div>
+            <div class="mb-3">
+                <label style="color: #763134; font-weight: 600;">Ekipman Adedi</label>
+                <input type="number" name="StokAdedi" class="form-control" style="height: 40px;" min="1" step="1" required />
+            </div>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+                <button type="button" id="ekipmanEkleIptalBtn" class="btn btn-secondary">İptal</button>
+            </div>
+            <div id="ekipmanEkleHata" class="text-danger mt-2" style="display:none;"></div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Ekipman Silme Onay Modalı -->
+<div>
+    <div id="ekipmanSilmeModal" class="custom-modal" style="display:none;">
+        <div class="custom-modal-content">
+            <p>Bu ekipmanı silmek istediğinize emin misiniz?</p>
+            <div class="text-center mt-3">
+                <button id="ekipmanOnayBtn" class="btn btn-secondary">Evet, Sil</button>
+                <button id="ekipmanIptalBtn" class="btn btn-secondary">İptal</button>
+            </div>
+        </div>
+    </div>
+</div>

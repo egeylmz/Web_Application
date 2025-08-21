@@ -1,0 +1,31 @@
+@model List<WebProject.Models.EkipmanTalep>
+
+@{
+    ViewData["Title"] = "Ekipman Taleplerim";
+}
+
+<h2  class="mb-4 text-center" style="color: #763134;">Ekipman Taleplerim</h2>
+
+<table class="table table-bordered table-hover table-admin">
+    <thead>
+        <tr>
+            <th>Ekipman Adı</th>
+            <th>Talep Sayısı</th>
+            <th>Açıklama</th>
+            <th>Talep Tarihi</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var talep in Model)
+        {
+            <tr>
+                <td>@talep.EkipmanAdi</td>
+                <td>@talep.TalepSayisi</td>
+                <td>@talep.Aciklama</td>
+                <td>@talep.TalepTarihi.ToShortDateString()</td>
+                <td>@talep.Durum</td>
+            </tr>
+        }
+    </tbody>
+</table>

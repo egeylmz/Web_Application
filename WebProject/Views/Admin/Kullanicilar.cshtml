@@ -1,0 +1,110 @@
+@model List<WebProject.Models.Kullanici>
+@section Scripts {
+    <script src="~/js/kullanicilar.js?v=2"></script>                
+}
+
+@{
+    ViewData["Title"] = "Kullanıcı Listesi";                  
+}                                                                                
+<h2 class="mb-4 text-center" style="color: #763134;">Kullanıcı Listesi</h2>
+
+@if (TempData["SilmeHatasi"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["SilmeHatasi"]
+    </div>
+}
+
+<form id="kullaniciSilmeForm">                  
+    @Html.AntiForgeryToken()
+</form>
+
+<div id="kullaniciTabloContainer">
+    <table class="table table-bordered table-hover table-admin">
+        <thead class="table-dark">
+            <tr>
+                <th>Ad Soyad</th>
+                <th>Rol</th>
+                <th>Aktif</th>
+                <th>Kayıt Tarihi</th>
+                <th>Şifre</th>
+                <th style="width: 50px;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kullanici in Model)
+            {
+                <tr>
+                    <td>@kullanici.AdSoyad</td>
+                    <td>@kullanici.Rol</td>
+                    <td>@(kullanici.Aktif ? "Evet" : "Hayır")</td>
+                    <td>@kullanici.KayitTarihi.ToShortDateString()</td>
+                    <td>@kullanici.Sifre</td>
+                    <td class="d-flex justify-content-start">
+                        <a href="#" class="me-2" onclick="showSilmeModal('@kullanici.Id'); return false;">        
+                            <img src="~/img/delete.png" width="24" height="24" alt="Sil" />
+                        </a>
+                        <a asp-controller="Admin" asp-action="Duzenle" asp-route-id="@kullanici.Id" title="Düzenle">
+                            <img src="~/img/edit.png" width="22" height="22" alt="Düzenle" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-4 text-end">
+    <a href="#" class="btn btn-primary me-2" onclick="showKullaniciEkleModal(); return false;">
+        + Yeni Kullanıcı Ekle
+    </a>
+</div>
+
+
+<!-- Kullanıcı Silme Onay Modalı -->
+<div>
+    <div id="silmeModal" class="custom-modal" style="display:none;">
+        <div class="custom-modal-content">
+            <p>Bu kullanıcıyı silmek istediğinize emin misiniz?</p>
+            <div class="text-center mt-3">
+                <button id="modalOnayBtn" class="btn btn-secondary">Evet, Sil</button>
+                <button id="modalIptalBtn" class="btn btn-secondary">İptal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Kullanıcı Ekleme Modalı -->
+<div id="kullaniciEkleModal" class="custom-modal" style="display:none;">
+    <div class="custom-modal-content">
+        <h4 class="mb-3" style="color:#763134;">Yeni Kullanıcı Ekle</h4>
+        <form id="kullaniciEkleForm">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label style="color: #763134; font-weight: 600;">Ad Soyad</label>
+                <input type="text" name="AdSoyad" class="form-control" style="height: 40px;" required />
+            </div>
+            <div class="mb-3">
+                <label style="color: #763134; font-weight: 600;">Rol</label>
+                <select name="Rol" class="form-control" style="height: 40px;" required>
+                    <option value="Admin">Admin</option>
+                    <option value="IzinKullanicisi">IzinKullanicisi</option>
+                    <option value="EkipmanKullanicisi">EkipmanKullanicisi</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label style="color: #763134; font-weight: 600;">Şifre</label>
+                <input type="password" name="Sifre" class="form-control" style="height: 40px;" required />
+            </div>
+            <div class="form-check mb-3">
+                <input type="checkbox" name="Aktif" class="form-check-input" id="Aktif" checked />
+                <label class="form-check-label" for="Aktif" style="color: #763134; font-weight: 600;">Aktif</label>
+            </div>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+                <button type="button" id="kullaniciEkleIptalBtn" class="btn btn-secondary">İptal</button>
+            </div>
+            <div id="kullaniciEkleHata" class="text-danger mt-2" style="display:none;"></div>
+        </form>
+    </div>
+</div>

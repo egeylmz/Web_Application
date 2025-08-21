@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="500" viewBox="0 0 1400 500">
+  <defs>
+    <style>
+      .word {
+        font-family: "Pacifico", "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+        font-size: 190px;
+        font-weight: 400;
+        letter-spacing: 1.5px;
+        fill: #111;
+        stroke: #000;
+        stroke-width: 2;
+        paint-order: stroke;
+      }
+      .swoosh {
+        fill: none;
+        stroke: #000;
+        stroke-width: 10;
+        stroke-linecap: round;
+      }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" class="word">WebProject</text>
+  <!-- Underline swoosh -->
+  <path class="swoosh" d="M 300 360 Q 700 490 1100 370" />
+</svg>

@@ -1,0 +1,31 @@
+@model List<WebProject.Models.Izin>
+
+@{
+    ViewData["Title"] = "İzin Taleplerim";
+}
+
+<h2 class="mb-4 text-center" style="color: #763134;">İzin Taleplerim</h2>
+
+<table class="table table-bordered table-hover table-admin">
+    <thead>
+        <tr>
+            <th>İzin Tipi</th>
+            <th>Başlangıç</th>
+            <th>Bitiş</th>
+            <th>Açıklama</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var izin in Model)
+        {
+            <tr>
+                <td>@izin.IzinTipi</td>
+                <td>@izin.BaslangicTarihi.ToShortDateString()</td>
+                <td>@izin.BitisTarihi.ToShortDateString()</td>
+                <td>@izin.Aciklama</td>
+                <td>@izin.Durum</td>
+            </tr>
+        }
+    </tbody>
+</table>

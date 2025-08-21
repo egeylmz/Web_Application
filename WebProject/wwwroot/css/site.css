@@ -1,0 +1,210 @@
+/* Genel ayarlar */
+html {
+  font-size: 14px; /* Varsayılan font boyutu */
+  position: relative;
+  min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px; /* Daha büyük ekranlarda font boyutunu artır */
+  }
+}
+
+/* Ana başlık stilini modernleştir */
+.ana-baslik {
+  text-align:   center;
+  margin: 50px 0; /* Üst ve alt margin */
+  font-size: 45px; /* Başlık font boyutu */
+  font-family: 'Montserrat'; /* Modern font */
+  font-weight: 600; /* Kalın yazı */
+  color: #763134; /* Başlık rengi */
+  letter-spacing: 0.5px; /* Harf aralığını artır */
+}
+
+/* Body için margin ayarları */
+body {
+  margin-bottom: 60px;
+  background-color: #e0e0e0;
+}
+
+/* Form elemanları için placeholder ayarları */
+.form-floating > .form-control-plaintext::placeholder, 
+.form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, 
+.form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/* Focus ve active durumları için etkileşim ekleme */
+.btn:focus, 
+.btn:active:focus, 
+.btn-link.nav-link:focus, 
+.form-control:focus, 
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #123464;
+}
+
+/* Butonlar için stil */
+.btn {
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 10px; /* Yuvarlak köşeler */
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #763134;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #824a4d; /* Hover durumunda renk değişimi */
+  transform: scale(1.05); /* Hoverda buton büyür */
+}
+
+.btn-secondary {
+  background-color: #763134;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #824a4d;
+  transform: scale(1.05);
+}
+
+/* Alert Box (Hata mesajları) */
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+/* Footer için stil */
+.footer {
+  background-color: #ffffff;
+  color: #fff;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  padding: 5px 0;
+  position: fixed;
+  width: 100%;
+}
+
+/* Admin Paneli Özel Tasarım */
+.admin-flex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 70vh;
+    gap: 40px;
+    padding-right: 6vw;
+}
+.admin-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.admin-title {
+    font-size: 2.5rem;
+    font-family: 'Montserrat', sans-serif;
+    color: #763134;
+    font-weight: 500;
+}
+.admin-right {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 32px;
+}
+.admin-box {
+    width: 250px;
+    height: 188px;
+    background: #763134;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    text-align: center;
+    text-decoration: none;
+}
+.admin-box:hover {
+    transform: scale(1.04);
+    box-shadow: 0 4px 24px rgba(118,49,52,0.15);
+    background: #824a4d;
+    color: #fff;
+}
+@media (max-width: 900px) {
+    .admin-flex { flex-direction: column; gap: 20px; padding-right: 0; }
+    .admin-left, .admin-right { justify-content: center; }
+}
+@media (max-width: 600px) {
+    .admin-grid { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); gap: 16px; }
+    .admin-box { width: 100%; min-width: 140px; height: 80px; font-size: 1rem; }
+    .admin-title { font-size: 1.3rem; }
+}
+
+/* Admin Paneli Kullanıcı Tablosu */
+.table-admin th {
+    background-color: #763134 !important;
+    color: #fff !important;
+    text-align: center;
+    vertical-align: middle;
+}
+.table-admin td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.navbar-brand {
+    color: #763134 !important; /* İstediğin rengi buraya yazabilirsin */
+    font-weight: 50;
+    font-family: 'Montserrat';
+}
+
+.nav-link.fw-bold {
+  font-weight: 500;
+}
+
+/* Özel Modal Stil Ayarları */
+.custom-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.custom-modal-content {
+    background: #fff;
+    padding: 32px 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.15);
+    min-width: 300px;
+    text-align: center;
+}

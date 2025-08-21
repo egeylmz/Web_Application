@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Personel İzin ve Ekipman Talep Yönetim Sistemi";
+}
+
+<div class="text-center">
+    <h2 class="ana-baslik">PERSONEL YÖNETİM SİSTEMİ</h2>
+</div>
+
+@if (TempData["Hata"] != null)
+{
+    <div class="alert alert-danger text-center" style="max-width: 400px; margin: 0 auto;">
+        @TempData["Hata"]
+    </div>
+}
+
+<div class="d-flex justify-content-center">
+    <form method="post" asp-controller="Account" asp-action="Login" style="max-width: 400px; width: 100%;">
+        <div class="mb-3">
+            <label for="adSoyad" class="form-label" style="color: #763134; font-weight: 600;">Ad Soyad:</label>
+            <input type="text" name="AdSoyad" class="form-control" style="height: 40px;" required />
+        </div>
+        <div class="mb-3">
+            <label for="sifre" class="form-label" style="color: #763134; font-weight: 600;">Şifre:</label>
+            <input type="password" name="Sifre" class="form-control" style="height: 40px;" required />
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary me-2">Giriş Yap</button>
+            <a asp-controller="Account" asp-action="Register" class="btn btn-secondary">Kayıt Ol</a>
+        </div>
+    </form>
+</div>
